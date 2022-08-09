@@ -1,5 +1,7 @@
 # Supply Chain Contracts Simulation
 
+This was developed as part of a deliverable for CS50 course.
+
 #### **Video Demo:** https://youtu.be/iHsFoRAUwDE
 #### **Description:**
 
