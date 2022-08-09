@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{% endblock %}
+
+{% block title %}
+    Compare
+{% endblock %}
+
+
+
+{% block main %}
+<div class="text-center">
+        <div class="mb-3">Select the contract types to be compared:</div>
+
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input" id="ltc" name="compareCheckboxes" type="checkbox" value="ltc" onChange="renderParameters()">
+                <label for="ltc" class="form-check-label">Long Term</label>
+            </div>
+
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input" id="spot" name="compareCheckboxes" type="checkbox" value="spot" onChange="renderParameters()">
+                <label for="spot" class="form-check-label">Spot</label>
+            </div>
+
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input" id="ltc-spot" name="compareCheckboxes" type="checkbox" value="ltc-spot" onChange="renderParameters()">
+                <label for="ltc-spot" class="form-check-label">Long Term with Spot</label>
+            </div>
+
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input" id="options" name="compareCheckboxes" type="checkbox" value="options" onChange="renderParameters()">
+                <label for="options" class="form-check-label">Options</label>
+            </div>
+
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input" id="ltc-options" name="compareCheckboxes" type="checkbox" value="ltc-options" onChange="renderParameters()">
+                <label for="ltc-options" class="form-check-label">Long Term with Options</label>
+            </div>
+        <br>
+        <!-- <button class="btn btn-primary" type="button" onclick="renderParameters()">Enter Parameters</button> -->
+
+
+        <div style="padding-bottom: 3%;" class="parameters ltc spot ltc-spot options ltc-options" hidden></div>
+        <div class="container parameters ltc spot ltc-spot options ltc-options" style="background-color:white" hidden>
+        <!-- <h6 class="mb-3 parameters" id="enterParameterText" style="color:black;" hidden><b>Please enter following parameters</b></h6> -->
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <section>
+                        <div class="row">
+                            <div class="col col-md-offset-2">
+                                <div class="form-horizontal">
+                                    <div class="mb-3 form-group">
+                                        <label for="wsp" class="col-sm-4 control-label parameters ltc  ltc-spot ltc-options" hidden>Wholesale Price </label>
+                                        <input autocomplete="off" autofocus class="parameters ltc ltc-spot ltc-options" id="wsp" name="parameters" type="number" placeholder="Wholesale Price" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="uop" class="col-sm-4 control-label parameters options ltc-options" hidden>Unit Options Price </label>
+                                        <input autocomplete="off" class="parameters options ltc-options" id="uop" name="parameters" type="number" placeholder="Unit Options Price" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="uep" class="col-sm-4 control-label parameters options ltc-options" hidden>Unit Exercise Price </label>
+                                        <input autocomplete="off" class="parameters options ltc-options" id="uep" name="parameters" type="number" placeholder="Unit Exercise Price" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="rp" class="col-sm-4 control-label parameters ltc spot ltc-spot options ltc-options" hidden>Retail Price </label>
+                                        <input autocomplete="off" autofocus class="parameters ltc spot ltc-spot options ltc-options" id="rp" name="parameters" type="number" placeholder="Retail Price" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="salp" class="col-sm-4 control-label parameters ltc  ltc-spot ltc-options" hidden>Salvage Price </label>
+                                        <input autocomplete="off" autofocus class="parameters ltc ltc-spot ltc-options" id="salp" name="parameters" type="number" placeholder="Salvage Price" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="mean" class="col-sm-4 control-label parameters ltc spot ltc-spot options ltc-options" hidden>Mean Quantity </label>
+                                        <input autocomplete="off" autofocus class="parameters ltc spot ltc-spot options ltc-options" id="mean" name="parameters" type="number" placeholder="Mean Quantity" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="sd" class="col-sm-4 control-label parameters ltc spot ltc-spot options ltc-options" hidden>Standard Deviation </label>
+                                        <input autocomplete="off" autofocus class="parameters ltc spot ltc-spot options ltc-options" id="sd" name="parameters" type="number" placeholder="Standard Deviation" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="orderQty" class="col-sm-4 control-label parameters ltc  ltc-spot ltc-options" hidden>Order Quantity for Long Term Contract</label>
+                                        <input autocomplete="off" autofocus class="parameters ltc ltc-spot ltc-options" id="orderQty" name="parameters" type="number" placeholder="Order Quantity (LT)" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="optOrderQty" class="col-sm-4 control-label parameters options ltc-options" hidden>Order Quantity for Options Procurement </label>
+                                        <input autocomplete="off" autofocus class="parameters options ltc-options" id="optOrderQty" name="parameters" type="number" placeholder="Order Quantity (Options)" hidden>
+                                    </div>
+                                    <div class="mb-3 form-group">
+                                        <label for="numOfIter" class="col-sm-4 control-label parameters ltc spot ltc-spot options ltc-options" hidden>Number of Iterations </label>
+                                        <input autocomplete="off" autofocus class="parameters ltc spot ltc-spot options ltc-options" id="numOfIter" name="parameters" type="number" placeholder="Number of Iterations" hidden>
+                                    </div>
+                                    <h6 class="mb-3 parameters spot ltc-spot" id="spotNote" style="color:black;" hidden><i>Note: Historically, <b>upto 10% discount</b> to the Retail Price was available for Spot Prices.</i></h6>
+                                    <div class="mb-3 form-group">
+                                        <button class="btn btn-primary parameters ltc spot ltc-spot options ltc-options" id="compareSimulationBtn" name="parameters" type="button" onclick="runCompareSimulation()" hidden>Run Simulation</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div id="chartOptions" class="mb-3 text-center"></div>
+            <div id="chartContainer" style=width:100%;"></div>
+
+    </div>
+{% endblock %}

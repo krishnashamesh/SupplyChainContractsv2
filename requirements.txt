@@ -1,0 +1,9 @@
+numpy
+sql
+sqlparse
+termcolor
+Flask
+Flask-Session
+passlib
+requests
+SQLAlchemy
